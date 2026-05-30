@@ -1,0 +1,11 @@
+listing_id,title,price,location,city,bedrooms,description,has_images,user_id,user_account_days,user_verified,is_fraud
+LST001,Modern 2BR Apartment with Ocean View,550,"Masaki, Dar es Salaam, Tanzania",Dar es Salaam,2,"Beautiful modern apartment with sea view, secure area with 24/7 security, close to shopping malls.",TRUE,USER_VERIFIED_001,365,TRUE,FALSE
+LST002,Cozy 1BR in City Center,400,"Nairobi CBD, Kenya",Nairobi,1,"Perfect for professionals, walking distance to all amenities, secure building with parking.",TRUE,USER_VERIFIED_002,180,TRUE,FALSE
+LST003,Family House with Garden,750,"Kampala, Uganda",Kampala,3,"Spacious family home with large garden, quiet neighborhood, near international school.",TRUE,USER_VERIFIED_003,540,TRUE,FALSE
+LST004,AMAZING DEAL 3BR HOUSE,150,"Somewhere, Dar es Salaam",Dar es Salaam,3,"URGENT! Send deposit via Western Union to secure this amazing property! Owner overseas.",FALSE,NEW_USER_004,1,FALSE,TRUE
+LST005,Luxury Beach Villa,1200,"Zanzibar, Tanzania",Zanzibar,4,"Stunning beachfront villa with private pool. Immediate move in. Agent fee required.",FALSE,USER_SUSPECT_005,3,FALSE,TRUE
+LST006,Studio Apartment,250,"Kisumu, Kenya",Kisumu,1,"Clean and quiet studio, perfect for students. First month deposit required.",TRUE,USER_VERIFIED_006,90,TRUE,FALSE
+LST007,Cheap 2BR Near Town,180,"Arusha, Tanzania",Arusha,2,"HARAKA! Tuma pesa sasa. Owner is out of country.",FALSE,NEW_USER_007,1,FALSE,TRUE
+LST008,Modern 3BR with Pool,850,"Mombasa, Kenya",Mombasa,3,"Luxury apartment with pool, gym, and 24/7 security. Verified landlord.",TRUE,USER_VERIFIED_008,730,TRUE,FALSE
+LST009,URGENT RENTAL,120,"Dodoma, Tanzania",Dodoma,3,"Moneygram deposit required. No viewing allowed. First come first serve.",FALSE,NEW_USER_009,2,FALSE,TRUE
+LST010,Budget Single Room,200,"Mwanza, Tanzania",Mwanza,1,"Simple room for single person, shared facilities, good location.",TRUE,USER_VERIFIED_010,45,TRUE,FALSE

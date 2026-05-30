@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection EA Rentals | Frank Karani</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Fraud Detection <span>& Trust Scoring</span></h1>
+            <p>East African Rental Market | Tanzania • Kenya • Uganda</p>
+            <div class="badge-container">
+                <div class="badge">👤 Frank Karani</div>
+                <div class="badge">📍 Challenge #04</div>
+                <div class="badge">⭐ 6 Detection Scenarios</div>
+                <div class="badge">🇹🇿 Tanzania</div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <!-- Left Column: Check Rental Listing -->
+            <div class="card">
+                <h2>🔍 Check Rental Listing</h2>
+                
+                <!-- LED Risk Indicator -->
+                <div class="risk-led-container">
+                    <div class="risk-led off" id="riskLed"></div>
+                    <span class="risk-led-label" style="font-size: 14px; font-weight: 700; letter-spacing: 2px;">⚡ LIVE RISK MONITOR</span>
+                </div>
+                
+                <form id="fraudForm">
+                    <div class="form-group">
+                        <label>Listing ID</label>
+                        <input type="text" id="listingId" value="500" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="title" value="Danzilla 20K Apartments" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (USD/month)</label>
+                        <input type="number" id="price" value="500" required>
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <select id="city">
+                            <option value="dar es salaam" selected>Dar es Salaam, Tanzania</option>
+                            <option value="nairobi">Nairobi, Kenya</option>
+                            <option value="kampala">Kampala, Uganda</option>
+                            <option value="arusha">Arusha, Tanzania</option>
+                            <option value="mombasa">Mombasa, Kenya</option>
+                            <option value="zanzibar">Zanzibar, Tanzania</option>
+                            <option value="kisumu">Kisumu, Kenya</option>
+                            <option value="mwanza">Mwanza, Tanzania</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bedrooms</label>
+                        <select id="bedrooms">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Location Description</label>
+                        <textarea id="location">Masaki, Dar es Salaam, Tanzania</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="description">Modern apartment with sea view, secure area, close to shopping mall.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Has Images?</label>
+                        <select id="hasImages">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>User ID</label>
+                        <input type="text" id="userId" value="LESR001">
+                    </div>
+                    <div class="form-group">
+                        <label>Account Age (days)</label>
+                        <input type="number" id="userAge" value="365">
+                    </div>
+                    <div class="form-group">
+                        <label>Verified User?</label>
+                        <select id="userVerified">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <button type="submit">🚨 Detect Fraud</button>
+                </form>
+                <div id="result" class="result"></div>
+            </div>
+            
+            <!-- Right Column: Trust Score & Scenarios -->
+            <div class="card">
+                <h2>⭐ Trust Score Check</h2>
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" id="trustUserId" value="LESR001">
+                </div>
+                <button onclick="checkTrustScore()">📊 Calculate Trust Score</button>
+                <div id="trustResult" class="trust-result"></div>
+                
+                <hr>
+                
+                <h2>⚠️ Detection Scenarios</h2>
+                <div class="scenarios-list" id="scenariosList">
+                    <div style="text-align: center; padding: 20px;">Loading scenarios...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/frontend/script.js"></script>
+</body>
+</html>

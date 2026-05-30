@@ -1,0 +1,41 @@
+# ============================================
+# Fraud Detection & Trust Scoring System
+# East African Rental Market
+# Participant: Frank Karani | Challenge #04
+# ============================================
+
+version: '3.8'
+
+services:
+  fraud-detection-api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: fraud-detection-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=False
+    volumes:
+      - ../app:/app/app
+      - fraud_data:/app/data
+      - fraud_models:/app/models
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - fraud-network
+
+volumes:
+  fraud_data:
+    driver: local
+  fraud_models:
+    driver: local
+
+networks:
+  fraud-network:
+    driver: bridge
