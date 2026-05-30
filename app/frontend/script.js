@@ -38,45 +38,61 @@ async function detectFraud(data) {
 async function checkTrustScore() {
     const userId = document.getElementById("trustUserId").value;
     
-    const trustScoreMap = {
-        "LESR001": { score: 73, risk: "LOW", recommendation: "APPROVE" },
-        "LESR0014": { score: 58, risk: "MEDIUM", recommendation: "REVIEW" }
-    };
-    
-    if (trustScoreMap[userId]) {
-        const mapped = trustScoreMap[userId];
-        const bgColor = mapped.risk === "HIGH" ? "#fee2e2" : mapped.risk === "MEDIUM" ? "#fff3e0" : "#dcfce7";
-        const textColor = mapped.risk === "HIGH" ? "#dc2626" : mapped.risk === "MEDIUM" ? "#f59e0b" : "#064e3b";
-        
-        document.getElementById("trustResult").innerHTML = `
-            <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
-                <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${mapped.score}%</div>
-                <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${mapped.risk}</div>
-                <div style="font-size: 13px;"><strong>Recommendation:</strong> ${mapped.recommendation}</div>
-            </div>
-        `;
-        return;
-    }
-    
+    // Kwanza, pata fraud score kwa user huyu kupitia API
     try {
-        const response = await fetch(`${API_URL}/api/v1/trust-score/${userId}`);
-        const data = await response.json();
+        // Tuma request ya kugundua ulaghai kwa listing ya kawaida
+        const sampleData = {
+            listing_id: "SAMPLE001",
+            title: "Sample Property",
+            price: 500,
+            location: "Sample Location",
+            city: "Dar es Salaam",
+            bedrooms: 2,
+            description: "Sample description for testing",
+            has_images: true,
+            user_id: userId,
+            user_account_days: 365,
+            user_verified: true
+        };
         
-        let bgColor = data.risk_level === "HIGH" ? "#fee2e2" : data.risk_level === "MEDIUM" ? "#fff3e0" : "#dcfce7";
-        let textColor = data.risk_level === "HIGH" ? "#dc2626" : data.risk_level === "MEDIUM" ? "#f59e0b" : "#064e3b";
+        const fraudResponse = await fetch(`${API_URL}/api/v1/detect`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(sampleData)
+        });
+        const fraudResult = await fraudResponse.json();
+        
+        // Trust score = 100 - fraud_score
+        const trustScore = 100 - fraudResult.fraud_score;
+        let riskLevel = "";
+        let recommendation = "";
+        
+        if (trustScore >= 70) {
+            riskLevel = "LOW";
+            recommendation = "APPROVE";
+        } else if (trustScore >= 50) {
+            riskLevel = "MEDIUM";
+            recommendation = "REVIEW";
+        } else {
+            riskLevel = "HIGH";
+            recommendation = "REJECT";
+        }
+        
+        const bgColor = riskLevel === "HIGH" ? "#fee2e2" : riskLevel === "MEDIUM" ? "#fff3e0" : "#dcfce7";
+        const textColor = riskLevel === "HIGH" ? "#dc2626" : riskLevel === "MEDIUM" ? "#f59e0b" : "#064e3b";
         
         document.getElementById("trustResult").innerHTML = `
             <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
-                <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${data.trust_score}%</div>
-                <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${data.risk_level}</div>
-                <div style="font-size: 13px;"><strong>Recommendation:</strong> ${data.recommendation}</div>
+                <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${trustScore}%</div>
+                <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${riskLevel}</div>
+                <div style="font-size: 13px;"><strong>Recommendation:</strong> ${recommendation}</div>
             </div>
         `;
     } catch (error) {
-        console.error("Error fetching trust score:", error);
+        console.error("Error:", error);
         document.getElementById("trustResult").innerHTML = `
             <div style="color: red; padding: 15px;">
-                Error: Could not fetch trust score. Please try again.
+                Error: Could not calculate trust score.
             </div>
         `;
     }
