@@ -1,4 +1,5 @@
-const API_BASE_URL = "https://onrender.com";
+// API URL - Sahihi kwa Render deployment
+const API_URL = "https://fraud-detection-east-africa.onrender.com";
 
 // LED Functions
 function updateRiskLED(riskLevel) {
@@ -18,7 +19,6 @@ function resetRiskLED() {
     if (led) led.className = 'risk-led off';
 }
 
-// Start LED blinking immediately when page loads
 function startLEDIdleBlink() {
     const led = document.getElementById('riskLed');
     if (led) {
@@ -38,13 +38,11 @@ async function detectFraud(data) {
 async function checkTrustScore() {
     const userId = document.getElementById("trustUserId").value;
     
-    // Map user IDs to their correct trust scores (consistent with fraud detection)
     const trustScoreMap = {
         "LESR001": { score: 73, risk: "LOW", recommendation: "APPROVE" },
         "LESR0014": { score: 58, risk: "MEDIUM", recommendation: "REVIEW" }
     };
     
-    // If user has a mapped trust score, use it for consistency
     if (trustScoreMap[userId]) {
         const mapped = trustScoreMap[userId];
         const bgColor = mapped.risk === "HIGH" ? "#fee2e2" : mapped.risk === "MEDIUM" ? "#fff3e0" : "#dcfce7";
@@ -60,45 +58,60 @@ async function checkTrustScore() {
         return;
     }
     
-    // For other users, use API call
-    const response = await fetch(`${API_URL}/api/v1/trust-score/${userId}`);
-    const data = await response.json();
-    
-    let bgColor = data.risk_level === "HIGH" ? "#fee2e2" : data.risk_level === "MEDIUM" ? "#fff3e0" : "#dcfce7";
-    let textColor = data.risk_level === "HIGH" ? "#dc2626" : data.risk_level === "MEDIUM" ? "#f59e0b" : "#064e3b";
-    
-    document.getElementById("trustResult").innerHTML = `
-        <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
-            <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${data.trust_score}%</div>
-            <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${data.risk_level}</div>
-            <div style="font-size: 13px;"><strong>Recommendation:</strong> ${data.recommendation}</div>
-        </div>
-    `;
+    try {
+        const response = await fetch(`${API_URL}/api/v1/trust-score/${userId}`);
+        const data = await response.json();
+        
+        let bgColor = data.risk_level === "HIGH" ? "#fee2e2" : data.risk_level === "MEDIUM" ? "#fff3e0" : "#dcfce7";
+        let textColor = data.risk_level === "HIGH" ? "#dc2626" : data.risk_level === "MEDIUM" ? "#f59e0b" : "#064e3b";
+        
+        document.getElementById("trustResult").innerHTML = `
+            <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
+                <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${data.trust_score}%</div>
+                <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${data.risk_level}</div>
+                <div style="font-size: 13px;"><strong>Recommendation:</strong> ${data.recommendation}</div>
+            </div>
+        `;
+    } catch (error) {
+        console.error("Error fetching trust score:", error);
+        document.getElementById("trustResult").innerHTML = `
+            <div style="color: red; padding: 15px;">
+                Error: Could not fetch trust score. Please try again.
+            </div>
+        `;
+    }
 }
 
 async function loadScenarios() {
-    const response = await fetch(`${API_URL}/api/v1/scenarios`);
-    const scenarios = await response.json();
-    const html = scenarios.map(s => `
-        <div class="scenario-item">
-            <h4>⚠️ ${s.name}</h4>
-            <p>${s.description}</p>
-            <div class="indicators">
-                ${s.indicators.map(i => `<span class="indicator">${i}</span>`).join('')}
+    try {
+        const response = await fetch(`${API_URL}/api/v1/scenarios`);
+        const scenarios = await response.json();
+        const html = scenarios.map(s => `
+            <div class="scenario-item">
+                <h4>⚠️ ${s.name}</h4>
+                <p>${s.description}</p>
+                <div class="indicators">
+                    ${s.indicators.map(i => `<span class="indicator">${i}</span>`).join('')}
+                </div>
             </div>
-        </div>
-    `).join('');
-    document.getElementById("scenariosList").innerHTML = html;
+        `).join('');
+        document.getElementById("scenariosList").innerHTML = html;
+    } catch (error) {
+        console.error("Error loading scenarios:", error);
+        document.getElementById("scenariosList").innerHTML = `
+            <div style="color: red; padding: 20px; text-align: center;">
+                Error loading scenarios. Please refresh the page.
+            </div>
+        `;
+    }
 }
 
-// FRAUD DETECTION SUBMIT HANDLER (SAHIHI - MARA MOJA TU)
 document.getElementById("fraudForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("1. Form submitted - Starting fraud detection");
+    console.log("Form submitted - Starting fraud detection");
     resetRiskLED();
     
     const resultDiv = document.getElementById("result");
-    console.log("2. Result div found:", resultDiv);
     resultDiv.className = "result show";
     resultDiv.innerHTML = '<div style="text-align: center; padding: 20px;">🔄 Analyzing listing...</div>';
     
@@ -116,12 +129,12 @@ document.getElementById("fraudForm").addEventListener("submit", async (e) => {
         user_verified: document.getElementById("userVerified").value === "true"
     };
     
-    console.log("3. Data collected:", data);
+    console.log("Data collected:", data);
     
     try {
-        console.log("4. Sending request to API...");
+        console.log("Sending request to API...");
         const result = await detectFraud(data);
-        console.log("5. Result received:", result);
+        console.log("Result received:", result);
         updateRiskLED(result.risk_level);
         
         const riskClass = result.risk_level.toLowerCase();
@@ -146,6 +159,7 @@ document.getElementById("fraudForm").addEventListener("submit", async (e) => {
     }
 });
 
-// Start LED animation immediately when page loads
 startLEDIdleBlink();
 loadScenarios();
+
+console.log("Script loaded successfully. API_URL:", API_URL);
