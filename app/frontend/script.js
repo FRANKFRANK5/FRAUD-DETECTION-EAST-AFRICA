@@ -26,7 +26,58 @@ function startLEDIdleBlink() {
     }
 }
 
-async function detectFraud(data) {
+// FUNCTION KUU: Inasasisha matokeo yote kwa pamoja (Kushoto na Kulia)
+async function updateBothSides(fraudScore, trustScore, riskLevel, reasons) {
+    // SASISHA KUSHOTO (Result)
+    const riskClass = riskLevel.toLowerCase();
+    document.getElementById("result").className = `result show ${riskClass}`;
+    
+    let fraudStatus = fraudScore >= 60 ? "🚨 FRAUD DETECTED!" : 
+                     fraudScore >= 30 ? "⚠️ POTENTIAL FRAUD DETECTED" : "✅ No Fraud Detected";
+    let fraudColor = fraudScore >= 60 ? "#dc2626" : fraudScore >= 30 ? "#f59e0b" : "#22c55e";
+    
+    document.getElementById("result").innerHTML = `
+        <div style="font-weight: bold; margin-bottom: 8px; color: ${fraudColor};">${fraudStatus}</div>
+        <div class="fraud-score">Fraud Score: ${fraudScore}%</div>
+        <div>Trust Score: ${trustScore}%</div>
+        <div>Risk Level: <strong>${riskLevel}</strong></div>
+        ${reasons.length ? `<div style="margin-top: 12px;"><strong>Reasons:</strong></div>
+        <ul class="reasons">${reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
+        '<div style="margin-top: 12px;">✅ No suspicious patterns detected</div>'}
+    `;
+    
+    // SASISHA KULIA (Trust Score Check) - KWA KUTUMIA TRUST SCORE ILIYOHE
+    let rightRiskLevel = "";
+    let recommendation = "";
+    
+    if (trustScore >= 70) {
+        rightRiskLevel = "LOW";
+        recommendation = "APPROVE";
+    } else if (trustScore >= 50) {
+        rightRiskLevel = "MEDIUM";
+        recommendation = "REVIEW";
+    } else {
+        rightRiskLevel = "HIGH";
+        recommendation = "REJECT";
+    }
+    
+    const bgColor = rightRiskLevel === "HIGH" ? "#fee2e2" : rightRiskLevel === "MEDIUM" ? "#fff3e0" : "#dcfce7";
+    const textColor = rightRiskLevel === "HIGH" ? "#dc2626" : rightRiskLevel === "MEDIUM" ? "#f59e0b" : "#064e3b";
+    
+    document.getElementById("trustResult").innerHTML = `
+        <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
+            <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${trustScore}%</div>
+            <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${rightRiskLevel}</div>
+            <div style="font-size: 13px;"><strong>Recommendation:</strong> ${recommendation}</div>
+            <div style="font-size: 11px; margin-top: 8px; color: #666;">Based on Fraud Score: ${fraudScore}%</div>
+        </div>
+    `;
+    
+    // SASISHA LED
+    updateRiskLED(riskLevel);
+}
+
+async function detectFraudAndUpdateAll(data) {
     const response = await fetch(`${API_URL}/api/v1/detect`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,61 +86,41 @@ async function detectFraud(data) {
     return await response.json();
 }
 
+// CHECK TRUST SCORE - SASA INAPATA DATA KUTOKA KWA USER ANAYEJAZWA KWENYE FORM
 async function checkTrustScore() {
     const userId = document.getElementById("trustUserId").value;
+    const listingId = document.getElementById("listingId").value;
+    const title = document.getElementById("title").value;
+    const price = parseFloat(document.getElementById("price").value);
+    const location = document.getElementById("location").value;
+    const city = document.getElementById("city").value;
+    const bedrooms = parseInt(document.getElementById("bedrooms").value);
+    const description = document.getElementById("description").value;
+    const has_images = document.getElementById("hasImages").value === "true";
+    const user_account_days = parseInt(document.getElementById("userAge").value);
+    const user_verified = document.getElementById("userVerified").value === "true";
+    
+    // Tumia data halisi kutoka kwenye form
+    const data = {
+        listing_id: listingId,
+        title: title,
+        price: price,
+        location: location,
+        city: city,
+        bedrooms: bedrooms,
+        description: description,
+        has_images: has_images,
+        user_id: userId,
+        user_account_days: user_account_days,
+        user_verified: user_verified
+    };
     
     try {
-        // Tumia data halisi ya fraud detection kwa user huyu
-        // Kwanza, pata listing ya mwisho iliyochambuliwa au tumia sample
-        const sampleData = {
-            listing_id: "CALC001",
-            title: "Trust Score Calculation",
-            price: 500,
-            location: "Sample Location", 
-            city: "Dar es Salaam",
-            bedrooms: 2,
-            description: "Sample description for trust score calculation",
-            has_images: true,
-            user_id: userId,
-            user_account_days: 30,
-            user_verified: true
-        };
-        
-        const response = await fetch(`${API_URL}/api/v1/detect`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(sampleData)
-        });
-        const result = await response.json();
-        
-        // Trust Score = 100 - Fraud Score (Kama ulivyotaka)
+        const result = await detectFraudAndUpdateAll(data);
         const trustScore = 100 - result.fraud_score;
         
-        let riskLevel = "";
-        let recommendation = "";
-        
-        if (trustScore >= 70) {
-            riskLevel = "LOW";
-            recommendation = "APPROVE";
-        } else if (trustScore >= 50) {
-            riskLevel = "MEDIUM";
-            recommendation = "REVIEW";
-        } else {
-            riskLevel = "HIGH";
-            recommendation = "REJECT";
-        }
-        
-        const bgColor = riskLevel === "HIGH" ? "#fee2e2" : riskLevel === "MEDIUM" ? "#fff3e0" : "#dcfce7";
-        const textColor = riskLevel === "HIGH" ? "#dc2626" : riskLevel === "MEDIUM" ? "#f59e0b" : "#064e3b";
-        
-        document.getElementById("trustResult").innerHTML = `
-            <div style="background: ${bgColor}; padding: 15px; border-radius: 12px;">
-                <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${trustScore}%</div>
-                <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${riskLevel}</div>
-                <div style="font-size: 13px;"><strong>Recommendation:</strong> ${recommendation}</div>
-                <div style="font-size: 11px; margin-top: 8px; color: #666;">Based on Fraud Score: ${result.fraud_score}%</div>
-            </div>
-        `;
+        // Sasisha pande zote mbili
+        await updateBothSides(result.fraud_score, trustScore, result.risk_level, result.reasons);
         
     } catch (error) {
         console.error("Error:", error);
@@ -125,9 +156,9 @@ async function loadScenarios() {
     }
 }
 
+// DETECT FRAUD BUTTON - SASISHA PANDESA ZOTE
 document.getElementById("fraudForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("Form submitted - Starting fraud detection");
     resetRiskLED();
     
     const resultDiv = document.getElementById("result");
@@ -148,34 +179,22 @@ document.getElementById("fraudForm").addEventListener("submit", async (e) => {
         user_verified: document.getElementById("userVerified").value === "true"
     };
     
-    console.log("Data collected:", data);
-    
     try {
-        console.log("Sending request to API...");
-        const result = await detectFraud(data);
-        console.log("Result received:", result);
-        updateRiskLED(result.risk_level);
+        const result = await detectFraudAndUpdateAll(data);
+        const trustScore = 100 - result.fraud_score;
         
-        const riskClass = result.risk_level.toLowerCase();
-        document.getElementById("result").className = `result show ${riskClass}`;
+        // Sasisha pande zote mbili kwa pamoja
+        await updateBothSides(result.fraud_score, trustScore, result.risk_level, result.reasons);
         
-        let fraudStatus = result.fraud_score >= 60 ? "🚨 FRAUD DETECTED!" : 
-                         result.fraud_score >= 30 ? "⚠️ POTENTIAL FRAUD DETECTED" : "✅ No Fraud Detected";
-        let fraudColor = result.fraud_score >= 60 ? "#dc2626" : result.fraud_score >= 30 ? "#f59e0b" : "#22c55e";
-        
-        document.getElementById("result").innerHTML = `
-            <div style="font-weight: bold; margin-bottom: 8px; color: ${fraudColor};">${fraudStatus}</div>
-            <div class="fraud-score">Fraud Score: ${result.fraud_score}%</div>
-            <div>Trust Score: ${result.trust_score}%</div>
-            <div>Risk Level: <strong>${result.risk_level}</strong></div>
-            ${result.reasons.length ? `<div style="margin-top: 12px;"><strong>Reasons:</strong></div>
-            <ul class="reasons">${result.reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
-            '<div style="margin-top: 12px;">✅ No suspicious patterns detected</div>'}
-        `;
     } catch (error) {
         console.error("ERROR:", error);
         document.getElementById("result").innerHTML = `<div style="color: red; padding: 20px;">Error: ${error.message}</div>`;
     }
+});
+
+// PIA Hakikisha trustUserId inalingana na userId kwenye form
+document.getElementById("userId").addEventListener("input", function() {
+    document.getElementById("trustUserId").value = this.value;
 });
 
 startLEDIdleBlink();
