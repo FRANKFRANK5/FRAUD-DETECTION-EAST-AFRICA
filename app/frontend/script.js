@@ -28,26 +28,8 @@ function startLEDIdleBlink() {
 
 // FUNCTION KUU: Inasasisha matokeo yote kwa pamoja (Kushoto na Kulia)
 async function updateBothSides(fraudScore, trustScore, riskLevel, reasons) {
-    // SASISHA KUSHOTO (Result)
-    const riskClass = riskLevel.toLowerCase();
-    document.getElementById("result").className = `result show ${riskClass}`;
     
-    let fraudStatus = fraudScore >= 60 ? "🚨 FRAUD DETECTED!" : 
-                     fraudScore >= 30 ? "⚠️ POTENTIAL FRAUD DETECTED" : "✅ No Fraud Detected";
-    let fraudColor = fraudScore >= 60 ? "#dc2626" : fraudScore >= 30 ? "#f59e0b" : "#22c55e";
-    
-     // Tafuta mstari wa 31 na uubadilishe ufanane na hivi:
-    document.getElementById("result").innerHTML = `
-        <div style="font-weight: bold; margin-bottom: 8px; color: ${fraudColor};">${fraudStatus}</div>
-        <div class="fraud-score">Fraud Score: ${fraudScore}%</div>
-        <div>Trust Score: ${trustScore}%</div>
-        <div>Risk Level: <strong>${rightRiskLevel}</strong></div> 
-        ${reasons.length ? `<div style="margin-top: 12px;"><strong>Reasons:</strong></div>
-        <ul class="reasons">${reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
-        '<div style="margin-top: 12px;">✅ No suspicious patterns detected</div>'}
-    `;
-
-    // SASISHA KULIA (Trust Score Check) - KWA KUTUMIA TRUST SCORE ILIYOHE
+    // 1. TENGENEZA VIGEZO VYA MAAMUZI
     let rightRiskLevel = "";
     let recommendation = "";
     
@@ -61,7 +43,26 @@ async function updateBothSides(fraudScore, trustScore, riskLevel, reasons) {
         rightRiskLevel = "HIGH";
         recommendation = "REJECT";
     }
+
+    // 2. SASISHA KUSHOTO (Result Card)
+    const riskClass = rightRiskLevel.toLowerCase();
+    document.getElementById("result").className = `result show ${riskClass}`;
     
+    let fraudStatus = fraudScore >= 60 ? "🚨 FRAUD DETECTED!" : 
+                     fraudScore >= 30 ? "⚠️ POTENTIAL FRAUD DETECTED" : "✅ No Fraud Detected";
+    let fraudColor = fraudScore >= 60 ? "#dc2626" : fraudScore >= 30 ? "#f59e0b" : "#22c55e";
+    
+    document.getElementById("result").innerHTML = `
+        <div style="font-weight: bold; margin-bottom: 8px; color: ${fraudColor};">${fraudStatus}</div>
+        <div class="fraud-score">Fraud Score: ${fraudScore}%</div>
+        <div>Trust Score: ${trustScore}%</div>
+        <div>Risk Level: <strong>${rightRiskLevel}</strong></div>
+        ${reasons.length ? `<div style="margin-top: 12px;"><strong>Reasons:</strong></div>
+        <ul class="reasons">${reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
+        '<div style="margin-top: 12px;">✅ No suspicious patterns detected</div>'}
+    `;
+    
+    // 3. SASISHA KULIA (Trust Score Check Card)
     const bgColor = rightRiskLevel === "HIGH" ? "#fee2e2" : rightRiskLevel === "MEDIUM" ? "#fff3e0" : "#dcfce7";
     const textColor = rightRiskLevel === "HIGH" ? "#dc2626" : rightRiskLevel === "MEDIUM" ? "#f59e0b" : "#064e3b";
     
@@ -74,8 +75,8 @@ async function updateBothSides(fraudScore, trustScore, riskLevel, reasons) {
         </div>
     `;
     
-    // SASISHA LED
-    updateRiskLED(riskLevel);
+    // 4. SASISHA TAA YA LED
+    updateRiskLED(rightRiskLevel);
 }
 
 async function detectFraudAndUpdateAll(data) {
@@ -87,7 +88,7 @@ async function detectFraudAndUpdateAll(data) {
     return await response.json();
 }
 
-// CHECK TRUST SCORE - SASA INAPATA DATA KUTOKA KWA USER ANAYEJAZWA KWENYE FORM
+// CHECK TRUST SCORE - INAPATA DATA KUTOKA KWA FORM
 async function checkTrustScore() {
     const userId = document.getElementById("trustUserId").value;
     const listingId = document.getElementById("listingId").value;
@@ -101,7 +102,6 @@ async function checkTrustScore() {
     const user_account_days = parseInt(document.getElementById("userAge").value);
     const user_verified = document.getElementById("userVerified").value === "true";
     
-    // Tumia data halisi kutoka kwenye form
     const data = {
         listing_id: listingId,
         title: title,
@@ -119,10 +119,7 @@ async function checkTrustScore() {
     try {
         const result = await detectFraudAndUpdateAll(data);
         const trustScore = 100 - result.fraud_score;
-        
-        // Sasisha pande zote mbili
         await updateBothSides(result.fraud_score, trustScore, result.risk_level, result.reasons);
-        
     } catch (error) {
         console.error("Error:", error);
         document.getElementById("trustResult").innerHTML = `
@@ -157,7 +154,7 @@ async function loadScenarios() {
     }
 }
 
-// DETECT FRAUD BUTTON - SASISHA PANDESA ZOTE
+// DETECT FRAUD BUTTON
 document.getElementById("fraudForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     resetRiskLED();
@@ -183,17 +180,14 @@ document.getElementById("fraudForm").addEventListener("submit", async (e) => {
     try {
         const result = await detectFraudAndUpdateAll(data);
         const trustScore = 100 - result.fraud_score;
-        
-        // Sasisha pande zote mbili kwa pamoja
         await updateBothSides(result.fraud_score, trustScore, result.risk_level, result.reasons);
-        
     } catch (error) {
         console.error("ERROR:", error);
         document.getElementById("result").innerHTML = `<div style="color: red; padding: 20px;">Error: ${error.message}</div>`;
     }
 });
 
-// PIA Hakikisha trustUserId inalingana na userId kwenye form
+// Hakikisha trustUserId inalingana na userId kwenye form
 document.getElementById("userId").addEventListener("input", function() {
     document.getElementById("trustUserId").value = this.value;
 });
