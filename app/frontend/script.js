@@ -36,16 +36,17 @@ async function updateBothSides(fraudScore, trustScore, riskLevel, reasons) {
                      fraudScore >= 30 ? "⚠️ POTENTIAL FRAUD DETECTED" : "✅ No Fraud Detected";
     let fraudColor = fraudScore >= 60 ? "#dc2626" : fraudScore >= 30 ? "#f59e0b" : "#22c55e";
     
+     // Tafuta mstari wa 31 na uubadilishe ufanane na hivi:
     document.getElementById("result").innerHTML = `
         <div style="font-weight: bold; margin-bottom: 8px; color: ${fraudColor};">${fraudStatus}</div>
         <div class="fraud-score">Fraud Score: ${fraudScore}%</div>
         <div>Trust Score: ${trustScore}%</div>
-        <div>Risk Level: <strong>${riskLevel}</strong></div>
+        <div>Risk Level: <strong>${rightRiskLevel}</strong></div> 
         ${reasons.length ? `<div style="margin-top: 12px;"><strong>Reasons:</strong></div>
         <ul class="reasons">${reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
         '<div style="margin-top: 12px;">✅ No suspicious patterns detected</div>'}
     `;
-    
+
     // SASISHA KULIA (Trust Score Check) - KWA KUTUMIA TRUST SCORE ILIYOHE
     let rightRiskLevel = "";
     let recommendation = "";
