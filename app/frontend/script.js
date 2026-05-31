@@ -38,32 +38,33 @@ async function detectFraud(data) {
 async function checkTrustScore() {
     const userId = document.getElementById("trustUserId").value;
     
-    // Kwanza, pata fraud score kwa user huyu kupitia API
     try {
-        // Tuma request ya kugundua ulaghai kwa listing ya kawaida
+        // Tumia data halisi ya fraud detection kwa user huyu
+        // Kwanza, pata listing ya mwisho iliyochambuliwa au tumia sample
         const sampleData = {
-            listing_id: "SAMPLE001",
-            title: "Sample Property",
+            listing_id: "CALC001",
+            title: "Trust Score Calculation",
             price: 500,
-            location: "Sample Location",
+            location: "Sample Location", 
             city: "Dar es Salaam",
             bedrooms: 2,
-            description: "Sample description for testing",
+            description: "Sample description for trust score calculation",
             has_images: true,
             user_id: userId,
-            user_account_days: 365,
+            user_account_days: 30,
             user_verified: true
         };
         
-        const fraudResponse = await fetch(`${API_URL}/api/v1/detect`, {
+        const response = await fetch(`${API_URL}/api/v1/detect`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(sampleData)
         });
-        const fraudResult = await fraudResponse.json();
+        const result = await response.json();
         
-        // Trust score = 100 - fraud_score
-        const trustScore = 100 - fraudResult.fraud_score;
+        // Trust Score = 100 - Fraud Score (Kama ulivyotaka)
+        const trustScore = 100 - result.fraud_score;
+        
         let riskLevel = "";
         let recommendation = "";
         
@@ -86,13 +87,15 @@ async function checkTrustScore() {
                 <div style="font-size: 28px; font-weight: bold; color: ${textColor};">${trustScore}%</div>
                 <div style="font-size: 13px; margin-top: 5px;"><strong>Risk Level:</strong> ${riskLevel}</div>
                 <div style="font-size: 13px;"><strong>Recommendation:</strong> ${recommendation}</div>
+                <div style="font-size: 11px; margin-top: 8px; color: #666;">Based on Fraud Score: ${result.fraud_score}%</div>
             </div>
         `;
+        
     } catch (error) {
         console.error("Error:", error);
         document.getElementById("trustResult").innerHTML = `
             <div style="color: red; padding: 15px;">
-                Error: Could not calculate trust score.
+                Error: Could not calculate trust score. ${error.message}
             </div>
         `;
     }
