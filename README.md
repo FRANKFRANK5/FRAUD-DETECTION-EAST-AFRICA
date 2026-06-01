@@ -5,7 +5,7 @@
 **Country:** Tanzania
 **Challenge:** #04 - Fraud Detection & Trust Scoring
 **Institution:** IAA (Institute of Accountancy Arusha) - Year One
-**Student:** This progect developed by #Fist year student 2025/2026
+**Student:** This project developed by **Fist year student 2025/2026**
 ---
 
 ## 📌 Overview
