@@ -251,3 +251,4 @@ This is a real-time fraud detection and trust scoring system that applies data-d
 "Technology should not only connect people — it should protect them."
 
 — Frank Karani
+First year student
