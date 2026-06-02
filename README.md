@@ -17,6 +17,17 @@ It is designed to help users identify suspicious listings before making financia
 **Live Demo:** https://fraud-detection-east-africa.onrender.com
 **GitHub:** https://github.com/FRANKFRANK5/FRAUD-DETECTION-EAST-AFRICA
 
+## 📸 Live Demo Screenshots
+
+### 1. Safe Listing - Trust Score 100%
+![Safe Listing](Screenshot_20260602-163955.jpg)
+
+### 2. Fraud Detected - 73% Risk
+![Fraud Detected](Screenshot_20260602-164031.jpg)
+
+### 3. Input Form
+![Input Form](Screenshot_20260602-163816.jpg)
+
 ---
 
 ## ⚙️ How It Works
