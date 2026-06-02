@@ -17,17 +17,25 @@ It is designed to help users identify suspicious listings before making financia
 **Live Demo:** https://fraud-detection-east-africa.onrender.com
 **GitHub:** https://github.com/FRANKFRANK5/FRAUD-DETECTION-EAST-AFRICA
 
-## 📸 Live Demo Screenshots
+🎯 Live Demo & System Validation
 
-### 1. Safe Listing - Trust Score 100%
-![Safe Listing](Screenshot_20260602-163955.jpg)
+The system has been tested with real-world scenarios from the East African rental market. Below is visual proof of the Fraud Detection Engine in action, demonstrating both approved listings and blocked fraudulent attempts.
 
-### 2. Fraud Detected - 73% Risk
-![Fraud Detected](Screenshot_20260602-164031.jpg)
+### 1. User Input Interface
+The system provides a clean, intuitive form for landlords to submit property details for real-time risk analysis. All critical data points including price, location, images, and user history are captured for the ML model.
+![Listing Input Form](proof2.jpg)
 
-### 3. Input Form
-![Input Form](Screenshot_20260602-163816.jpg)
+### 2. Legitimate Listing Approved - Trust Score: 100%
+This demonstrates the system's ability to accurately identify and approve legitimate properties. The ML model found no suspicious patterns, resulting in a Fraud Score: 0% and Risk Level: LOW. The listing is automatically approved and published.
+![Approved Listing - No Fraud Detected](proof3.jpg)
 
+### 3. Fraudulent Listing Blocked - Price Anomaly Detected
+This shows the fraud detection engine successfully identifying a "phantom listing." The price of Tsh 100,000 for a Dar es Salaam apartment is significantly below market rate, triggering a Risk Level: HIGH alert. The system recommends REJECT to protect users from potential scams.
+![Fraudulent Listing - High Risk Alert](proof4.jpg)
+
+### 4. Complete System Dashboard
+Full overview of the Live Risk Monitor and Trust Score Check modules. The dashboard provides real-time analytics, detection scenarios, and actionable insights for platform administrators.
+![System Dashboard Overview](proof1.jpg)
 ---
 
 ## ⚙️ How It Works
