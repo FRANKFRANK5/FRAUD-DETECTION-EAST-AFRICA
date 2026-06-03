@@ -268,5 +268,11 @@ This is a real-time fraud detection and trust scoring system that applies data-d
 
 "Technology should not only connect people — it should protect them."
 
-— Frank Karani
+
 First year student
+## 👨‍💻 Author
+
+**Frank Karani**
+
+- LinkedIn: https://www.linkedin.com/in/frank-karani-47971b3b5
+- Live Demo: https://fraud-detection-east-africa.onrender.com
