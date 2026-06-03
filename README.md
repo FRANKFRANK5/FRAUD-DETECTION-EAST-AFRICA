@@ -2,7 +2,7 @@
 ## East African Rental Market Intelligence Platform
 
 
-![Status](https://img.shields.io/badge/Status-Pumzika%202026%20Finalist-gold
+[![Pumzika 2026](https://img.shields.io/badge/Pumzika%202026-Finalist-gold)](https://pumzika.africa)
 
 **Participant:** Frank Karani
 **Country:** Tanzania
