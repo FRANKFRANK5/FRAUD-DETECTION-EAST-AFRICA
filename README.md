@@ -1,12 +1,16 @@
 # 🛡️ Fraud Detection & Trust Scoring System
 ## East African Rental Market Intelligence Platform
 
+## ⚡ Executive Summary
 
-**Participant:** Frank Karani
-**Country:** Tanzania
-**Challenge:** #04 - Fraud Detection & Trust Scoring
-**Institution:** IAA (Institute of Accountancy Arusha) - Year One
-**Student:** This project developed by **First year student 2025/2026**
+A real-time fraud detection and trust scoring system for East African rental listings that evaluates risk using multi-factor analysis to prevent rental scams before payment occurs.
+
+## 🧾 Submission Info
+- Participant: Frank Karani  
+- Country: Tanzania  
+- Challenge: #04 Fraud Detection & Trust Scoring  
+- Institution: Institute of Accountancy Arusha (IAA)  
+- Year: First Year (2025/2026)
 ---
 ## 👨‍💻 Author
 
@@ -15,7 +19,7 @@
 Cyber Security Student | Institute of Accountancy Arusha (IAA)
 
 🔗 LinkedIn: [Frank Karani](https://www.linkedin.com/in/frank-karani-47971b3b5)
-
+**GitHub:** https://github.com/FRANKFRANK5/FRAUD-DETECTION-EAST-AFRICA
 🚀 Live Demo: [Fraud Detection & Trust Scoring System](https://fraud-detection-east-africa.onrender.com)
 
 ## 📌 Overview
@@ -23,9 +27,6 @@ Cyber Security Student | Institute of Accountancy Arusha (IAA)
 This system detects fraudulent rental listings in the East African market (Tanzania, Kenya, Uganda) using a multi-factor risk analysis engine.
 
 It is designed to help users identify suspicious listings before making financial commitments, improving trust and safety in digital property marketplaces.
-
-**Live Demo:** https://fraud-detection-east-africa.onrender.com
-**GitHub:** https://github.com/FRANKFRANK5/FRAUD-DETECTION-EAST-AFRICA
 
 🎯 Live Demo & System Validation
 
@@ -191,6 +192,24 @@ This system helps:
 - ✅ Support safer financial decisions
 - ✅ Enhance transparency in East African rental markets
 
+ ---
+
+## 💼 Business Potential
+
+This system can be integrated into:
+- Rental marketplaces
+- Real estate platforms
+- Agent verification systems
+
+Future direction:
+- API-based fraud detection service (SaaS model)
+- Subscription-based trust scoring for property listings
+---
+
+## 🎯 Motivation
+
+This project was inspired by real challenges in the East African rental market. I personally experienced rental fraud, which motivated me to build this system.
+
 ---
 
 ## 🛡️ Cold-Start Prevention Strategy
@@ -217,6 +236,11 @@ Designed for integration with East African digital identity systems:
 | Tanzania | NaPA Digital Addressing | Location validation |
 | Kenya | Huduma Namba | National ID verification |
 | Uganda | NIN | Identity authentication |
+
+---
+## 🏁 Conclusion
+
+This system provides a real-time, data-driven approach to detecting rental fraud and improving trust in East African property listings. It combines risk analysis and transparency to make rental decisions safer and more reliable.
 
 ---
 
