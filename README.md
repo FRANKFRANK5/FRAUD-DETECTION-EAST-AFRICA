@@ -1,6 +1,9 @@
 # 🛡️ Fraud Detection & Trust Scoring System
 ## East African Rental Market Intelligence Platform
 
+
+![Status](https://img.shields.io/badge/Status-Pumzika%202026%20Finalist-gold
+
 **Participant:** Frank Karani
 **Country:** Tanzania
 **Challenge:** #04 - Fraud Detection & Trust Scoring
