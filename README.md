@@ -8,6 +8,13 @@
 **Student:** This project developed by **First year student 2025/2026**
 ---
 
+## 👨‍💻 Author
+
+**Frank Karani**
+
+- LinkedIn: [Frank Karani](https://www.linkedin.com/in/frank-karani-47971b3b5)
+- Live Demo: [Fraud Detection System](https://fraud-detection-east-africa.onrender.com)
+
 ## 📌 Overview
 
 This system detects fraudulent rental listings in the East African market (Tanzania, Kenya, Uganda) using a multi-factor risk analysis engine.
@@ -268,11 +275,6 @@ This is a real-time fraud detection and trust scoring system that applies data-d
 
 "Technology should not only connect people — it should protect them."
 
-
+--Frank karani
 First year student
-## 👨‍💻 Author
 
-**Frank Karani**
-
-- LinkedIn: https://www.linkedin.com/in/frank-karani-47971b3b5
-- Live Demo: https://fraud-detection-east-africa.onrender.com
