@@ -7,13 +7,15 @@
 **Institution:** IAA (Institute of Accountancy Arusha) - Year One
 **Student:** This project developed by **First year student 2025/2026**
 ---
-
 ## 👨‍💻 Author
 
 **Frank Karani**
 
-- LinkedIn: [Frank Karani](https://www.linkedin.com/in/frank-karani-47971b3b5)
-- Live Demo: [Fraud Detection System](https://fraud-detection-east-africa.onrender.com)
+Cyber Security Student | Institute of Accountancy Arusha (IAA)
+
+🔗 LinkedIn: [Frank Karani](https://www.linkedin.com/in/frank-karani-47971b3b5)
+
+🚀 Live Demo: [Fraud Detection & Trust Scoring System](https://fraud-detection-east-africa.onrender.com)
 
 ## 📌 Overview
 
