@@ -19,7 +19,9 @@ A real-time fraud detection and trust scoring system for East African rental lis
 Cyber Security Student | Institute of Accountancy Arusha (IAA)
 
 🔗 LinkedIn: [Frank Karani](https://www.linkedin.com/in/frank-karani-47971b3b5)
+
 **GitHub:** https://github.com/FRANKFRANK5/FRAUD-DETECTION-EAST-AFRICA
+
 🚀 Live Demo: [Fraud Detection & Trust Scoring System](https://fraud-detection-east-africa.onrender.com)
 
 ## 📌 Overview
