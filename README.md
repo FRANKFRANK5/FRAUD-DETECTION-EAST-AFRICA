@@ -299,21 +299,17 @@ rental-fraud-detection-eastafrica/
 
 This is a real-time fraud detection and trust scoring system that applies data-driven risk analysis to rental listings, helping build safer and more reliable digital property ecosystems across East Africa.
 
-📞 ##Contact
+📞 Contact
 
-###Frank Karani
+👨‍💻 Frank Karani
 
-    Email: frankkarani146@gmail.com
+📧 Email: frankkarani146@gmail.com  
+🎓 Institution: Institute of Accountancy Arusha (IAA)  
+📚 Year: First Year (2025/2026)  
+🌍 Country: Tanzania  
+🏆 Challenge: #04 - Fraud Detection & Trust Scoring  
 
-    Institution: IAA (Institute of Accountancy Arusha)
-    First year student 2025/2026
+💡 "Technology should not only connect people — it should protect them."
 
-    Country: Tanzania
-
-    Challenge: #04 - Fraud Detection & Trust Scoring
-
-"Technology should not only connect people — it should protect them."
-
---Frank karani
-First year student
+— Frank Karani
 
