@@ -298,6 +298,7 @@ rental-fraud-detection-eastafrica/
 🏁 Conclusion
 
 This is a real-time fraud detection and trust scoring system that applies data-driven risk analysis to rental listings, helping build safer and more reliable digital property ecosystems across East Africa.
+
 📞 ##Contact
 
 ###Frank Karani
