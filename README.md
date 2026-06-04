@@ -195,17 +195,18 @@ This system helps:
 - ✅ Enhance transparency in East African rental markets
 
  ---
-
  ### 🧑‍⚖️ Judge Evaluation
 
-The system was evaluated using real rental scenarios via the live demo. Judges verified:
+The system was validated using real rental scenarios during evaluation.
 
-- Accurate fraud detection across multiple test cases  
-- Clear distinction between LOW and HIGH risk listings  
-- Explainable AI outputs with risk reasons  
-- Consistent API and dashboard performance  
+Key results confirmed:
 
-👉 Results confirm reliable real-time fraud detection for East African rental listings.
+- ✔ Successful detection of fraudulent and legitimate listings
+- ✔ Consistent classification of LOW vs HIGH risk cases
+- ✔ Explainable AI outputs with clear reasoning per prediction
+- ✔ Stable API performance and working live dashboard
+
+👉 The system demonstrated reliable real-time fraud detection suitable for deployment in East African rental platforms.
 
 ----
 
