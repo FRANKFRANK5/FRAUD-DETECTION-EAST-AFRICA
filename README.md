@@ -252,7 +252,6 @@ Designed for integration with East African digital identity systems:
 | Tanzania | NaPA Digital Addressing | Location validation |
 | Kenya | Huduma Namba | National ID verification |
 | Uganda | NIN | Identity authentication |
-|transparency to make rental decisions safer and more reliable.
 
 ---
 
