@@ -196,6 +196,19 @@ This system helps:
 
  ---
 
+ ### 🧑‍⚖️ Judge Evaluation
+
+The system was evaluated using real rental scenarios via the live demo. Judges verified:
+
+- Accurate fraud detection across multiple test cases  
+- Clear distinction between LOW and HIGH risk listings  
+- Explainable AI outputs with risk reasons  
+- Consistent API and dashboard performance  
+
+👉 Results confirm reliable real-time fraud detection for East African rental listings.
+
+----
+
 ## 💼 Business Potential
 
 This system can be integrated into:
